@@ -1,16 +1,5 @@
-#include <gtk/gtk.h>
 #include "gui.h"
-
-// Struktur zur Darstellung der Informationen eines Geräts
-typedef struct {
-    char *name;
-    char *description;
-} DeviceInfo;
-
-// Callback-Funktion, die aufgerufen wird, wenn das Fenster geschlossen wird
-static void on_window_closed(GtkWidget *widget, gpointer data) {
-    gtk_main_quit(); // Beendet die GTK-Hauptschleife
-}
+#include <gtk/gtk.h>
 
 // Funktion zum Erstellen eines Labels für ein Gerät
 static GtkWidget* create_device_label(DeviceInfo *device_info) {
@@ -19,6 +8,11 @@ static GtkWidget* create_device_label(DeviceInfo *device_info) {
     gtk_label_set_markup(GTK_LABEL(label), markup);
     g_free(markup);
     return label;
+}
+
+// Callback-Funktion, die aufgerufen wird, wenn das Fenster geschlossen wird
+static void on_window_closed(GtkWidget *widget, gpointer data) {
+    gtk_main_quit(); // Beendet die GTK-Hauptschleife
 }
 
 // Funktion zum Erstellen und Anzeigen der GUI
