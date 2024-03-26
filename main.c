@@ -4,16 +4,31 @@
 #include "gui.h"
 #include "deviceManager.h"
 
-int num_Devices;
-DeviceInfo* di;
+// Deklaration der Funktion updateDeviceList
+void updateDeviceList(DeviceList *devices);
 
-int main(int argc, char** argv){
+int main(int argc, char** argv) {
     printf("\nHS device manager");
 
-    di->name = "test";
-    di->description = "TEST";
+    // Erstelle eine Geräteliste
+    DeviceList *di = initDeviceList();
+    if (di == NULL) {
+        fprintf(stderr, "Fehler: Geräteliste konnte nicht initialisiert werden.\n");
+        return 1;
+    }
 
-    initGui(argc, argv, di, num_Devices);
+    // Füge einige Geräte hinzu
+    addDevice(di, "Gerät 1", "Dies ist Gerät 1");
+    addDevice(di, "Gerät 2", "Dies ist Gerät 2");
+
+    // Initialisiere die GUI
+    initGui(argc, argv, di);
+
+    // Aktualisiere die Geräteliste und die GUI
+    updateDeviceList(di);
+
+    // Gib den Speicher frei
+    freeDeviceList(di);
 
     return 0;
 }

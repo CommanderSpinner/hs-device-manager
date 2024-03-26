@@ -1,5 +1,6 @@
-#include "gui.h"
 #include <gtk/gtk.h>
+#include "gui.h"
+#include "deviceManager.h"
 
 // Funktion zum Erstellen eines Labels für ein Gerät
 static GtkWidget* create_device_label(DeviceInfo *device_info) {
@@ -16,7 +17,7 @@ static void on_window_closed(GtkWidget *widget, gpointer data) {
 }
 
 // Funktion zum Erstellen und Anzeigen der GUI
-void initGui(int argc, char** argv, DeviceInfo *devices, int num_devices){
+void initGui(int argc, char** argv, DeviceList *devices){
     // Initialisiere GTK
     gtk_init(&argc, &argv);
 
@@ -30,8 +31,8 @@ void initGui(int argc, char** argv, DeviceInfo *devices, int num_devices){
     gtk_container_add(GTK_CONTAINER(window), box);
 
     // Füge Labels für jedes Gerät hinzu
-    for (int i = 0; i < num_devices; i++) {
-        GtkWidget *label = create_device_label(&devices[i]);
+    for (int i = 0; i < devices->num_devices; i++) {
+        GtkWidget *label = create_device_label(&devices->devices[i]);
         gtk_box_pack_start(GTK_BOX(box), label, FALSE, FALSE, 0);
     }
 
@@ -41,3 +42,26 @@ void initGui(int argc, char** argv, DeviceInfo *devices, int num_devices){
     // Starte die GTK-Hauptschleife
     gtk_main();
 }
+
+// Funktion zum Aktualisieren der Geräteliste und Anzeigen in der GUI
+void updateDeviceList(DeviceList *devices) {
+    // Aktualisiere die Geräteliste hier (z.B. durch Abfragen von angeschlossenen Geräten)
+
+    // Lösche alle vorhandenen Widgets in der GUI-Box
+    GList *children, *iter;
+    children = gtk_container_get_children(GTK_CONTAINER(box));
+    for (iter = children; iter != NULL; iter = g_list_next(iter)) {
+        gtk_widget_destroy(GTK_WIDGET(iter->data));
+    }
+    g_list_free(children);
+
+    // Füge Labels für jedes aktualisierte Gerät hinzu
+    for (int i = 0; i < devices->num_devices; i++) {
+        GtkWidget *label = create_device_label(&devices->devices[i]);
+        gtk_box_pack_start(GTK_BOX(box), label, FALSE, FALSE, 0);
+    }
+
+    // Zeige das Fenster und alle darin enthaltenen Widgets an
+    gtk_widget_show_all(window);
+}
+
