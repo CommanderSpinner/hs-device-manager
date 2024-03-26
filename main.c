@@ -3,5 +3,5 @@
 #include <libusb-1.0/libusb.h>
 
 int main(void){
-    
+    printf("\nHS device manager");
 }
