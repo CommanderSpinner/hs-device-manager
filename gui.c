@@ -3,11 +3,36 @@
 #include "device.h"
 
 int deviceCount = 0;
+GtkWidget *window = NULL;
+GtkWidget *box = NULL;
 
-static void on_button_clicked(GtkWidget *button, Device d) {
-    g_print("Button clicked for device %d!\n", d.id);
+static void on_button_clicked(GtkWidget *button, Device* d) {
+    g_print("Button clicked for device %d!\n", d->id);
 }
 
+void initGui(int argc, char **argv) {
+    gtk_init(&argc, &argv);
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(window), "Device Buttons");
+    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    gtk_widget_set_size_request(window, 600, 400);
+    g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+
+    // Create a vertical box container
+    box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5); // 5 is spacing between children
+    gtk_container_add(GTK_CONTAINER(window), box);
+}
+
+void addButton(Device *device) {
+    GtkWidget *button;
+    char label[20];
+    sprintf(label, "Device %d", device->id);
+    button = gtk_button_new_with_label(label);
+    g_signal_connect(button, "clicked", G_CALLBACK(on_button_clicked), device);
+    gtk_container_add(GTK_CONTAINER(box), button); // Add button to the box container
+}
+
+/*
 void initGui(int argc, char **argv) {
     gtk_init(&argc, &argv);
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -17,18 +42,25 @@ void initGui(int argc, char **argv) {
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL); // Beende die GTK-Hauptschleife beim Schließen des Fensters
 }
 
-void programm(Device *devices) {
-    gtk_widget_show_all(window);
 
+void addButton(Device *devices) {
         GtkWidget *button;
         char label[20];
-        sprintf(label, "Device %d", devices->id);
+        //printf(label, "Device %d", devices->id);
         button = gtk_button_new_with_label(label);
         g_signal_connect(button, "clicked", G_CALLBACK(on_button_clicked), &devices);
         gtk_container_add(GTK_CONTAINER(window), button);
-
-    
 }
+
+void addButton(Device *device) {
+    GtkWidget *button;
+    char label[20];
+    sprintf(label, "Device %d", device->id);
+    button = gtk_button_new_with_label(label);
+    g_signal_connect(button, "clicked", G_CALLBACK(on_button_clicked), device); // Pass device instead of &devices
+    gtk_container_add(GTK_CONTAINER(window), button);
+}
+*/
 
 void quitGui() {
     gtk_widget_destroy(window);
@@ -39,12 +71,14 @@ int main(int argc, char **argv) {
 
     // Simulated device initialization
     deviceCount = 5;
-    Device devices[5];
+    Device devices[deviceCount];
     for (int i = 0; i < deviceCount; i++) {
         devices[i].id = i + 1;
         // Zusätzliche Geräteinitialisierung, wenn nötig
-        programm(&devices[i]);
+        addButton(&devices[i]);
     }
+
+    gtk_widget_show_all(window);
 
     gtk_main();
 
