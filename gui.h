@@ -8,7 +8,7 @@
 // Function to create the GUI window
 GtkWidget* create_window();
 
-GtkWidget* window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+GtkWidget* window;
 // Function to dynamically add buttons
 void add_button(GtkWidget* window, const char* label);
 

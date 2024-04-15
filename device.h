@@ -1,6 +1,8 @@
-int deviceCount = 0;
+#pragma once
 typedef struct{
-    void createDevice(const char* name){
-        deviceCount++;
-    }
+    int id;
+    const char* name;
 }Device;
+
+
+void createDevice(Device *device, int id, const char* name);
