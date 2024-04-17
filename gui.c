@@ -41,12 +41,15 @@ int main(int argc, char **argv) {
     initGui(argc, argv);
 
     // Simulated device initialization
-    deviceCount = 5;
+    deviceCount = getDevicesCount();
+
+    g_print("device count: %i", deviceCount);
+
     Device devices[deviceCount];
     for (int i = 0; i < deviceCount; i++) {
         devices[i].id = i + 1;
         devices[i].name = "test";
-        // Zusätzliche Geräteinitialisierung, wenn nötig
+        // Zusätzliche Geräteinitialisierung
         addButton(&devices[i]);
     }
 
