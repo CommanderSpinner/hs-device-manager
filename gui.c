@@ -1,14 +1,23 @@
 #include <gtk/gtk.h>
 #include "gui.h"
 #include "device.h"
+#include "usb_port.h"
 
 int deviceCount = 0;
 GtkWidget *window = NULL;
 GtkWidget *box = NULL;
 
+type_t click_counts = 0;
 static void on_button_clicked(GtkWidget *button, Device* d) {
     g_print("Button clicked for %s %d!\n", d->name, d->id);
-    
+    click_counts++;
+    if(click_counts % 2 == 0){
+        toggle_usb_port(d->port_identifier, 1);
+        isActive = true;
+    }ele{
+        toggle_usb_port(d->port_identifier, 0);
+        isActive = flase;
+    }
 }
 
 void initGui(int argc, char **argv) {
