@@ -8,7 +8,7 @@ GtkWidget *box = NULL;
 
 static void on_button_clicked(GtkWidget *button, Device* d) {
     g_print("Button clicked for %s %d!\n", d->name, d->id);
-
+    
 }
 
 void initGui(int argc, char **argv) {

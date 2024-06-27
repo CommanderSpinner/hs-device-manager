@@ -29,7 +29,11 @@ int getDevicesCount(){
     return (int)cnt;
 }
 
-Device* getDeviceNames(){
+void deactivadeDevice(){
+    
+}
+
+Device* getDeviceName(){
     Device* devices;
 
 
