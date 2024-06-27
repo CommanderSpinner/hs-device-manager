@@ -7,7 +7,8 @@ GtkWidget *window = NULL;
 GtkWidget *box = NULL;
 
 static void on_button_clicked(GtkWidget *button, Device* d) {
-    g_print("Button clicked for device %d!\n", d->id);
+    g_print("Button clicked for %s %d!\n", d->name, d->id);
+
 }
 
 void initGui(int argc, char **argv) {
@@ -49,7 +50,6 @@ int main(int argc, char **argv) {
     for (int i = 0; i < deviceCount; i++) {
         devices[i].id = i + 1;
         devices[i].name = "test";
-        // Zusätzliche Geräteinitialisierung
         addButton(&devices[i]);
     }
 

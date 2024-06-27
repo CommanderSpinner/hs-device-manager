@@ -2,6 +2,7 @@
 typedef struct{
     int id;
     const char* name;
+    bool isActive;
 }Device;
 
 int getDevicesCount();
