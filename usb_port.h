@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef _WIN32
+#ifdef _WIN32_
 #include <windows.h>
 #include <setupapi.h>
 #include <initguid.h>
@@ -77,6 +77,7 @@ int setUSBDeviceStateWindows(int enable, const char* deviceInstanceId) {
     return -1;
 }
 
+#endif
 #ifdef __linux__
 #include <unistd.h>
 #include <fcntl.h>

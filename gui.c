@@ -2,21 +2,22 @@
 #include "gui.h"
 #include "device.h"
 #include "usb_port.h"
+#include <stdlib.h>
 
 int deviceCount = 0;
 GtkWidget *window = NULL;
 GtkWidget *box = NULL;
 
-type_t click_counts = 0;
+unsigned int click_counts = 0;
 static void on_button_clicked(GtkWidget *button, Device* d) {
     g_print("Button clicked for %s %d!\n", d->name, d->id);
     click_counts++;
     if(click_counts % 2 == 0){
-        toggle_usb_port(d->port_identifier, 1);
-        isActive = true;
-    }ele{
-        toggle_usb_port(d->port_identifier, 0);
-        isActive = flase;
+        //toggle_usb_port(d->port_identifier, 1);
+        d->isActive = true;
+    }else{
+        //toggle_usb_port(d->port_identifier, 0);
+        d->isActive = false;
     }
 }
 
@@ -53,7 +54,7 @@ int main(int argc, char **argv) {
     // Simulated device initialization
     deviceCount = getDevicesCount();
 
-    g_print("device count: %i", deviceCount);
+    g_print("device count: %i \n", deviceCount);
 
     Device devices[deviceCount];
     for (int i = 0; i < deviceCount; i++) {

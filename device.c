@@ -29,15 +29,15 @@ int getDevicesCount(){
     return (int)cnt;
 }
 
-void deactivadeDevice(){
+void deactivadeDevice(Device* d){
     
 }
 
-Device* getDeviceName(){
-    Device* devices;
+const char* getDeviceName(){
+    const char* deviceName;
 
 
-    return devices;
+    return deviceName;
 }
 /*
 void createDevice(Device *device, int id, const char* name){
